@@ -5,7 +5,7 @@
   "main": "docs/index.html",
   "scripts": {
     "start": "webpack s",
-    "build": "rm -rf docs && webpack"
+    "build": "rm -rf docs && webpack && touch docs/CNAME && echo \"textarea.link\" > docs/CNAME"
   },
   "repository": {
     "type": "git",

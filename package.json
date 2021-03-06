@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shwilliam/shwilliam.com.git"
+    "url": "git+https://github.com/shwilliam/textarea.link.git"
   },
   "author": "William Lindvall <shwilliam@hey.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shwilliam/shwilliam.com/issues"
+    "url": "https://github.com/shwilliam/textarea.link/issues"
   },
-  "homepage": "https://github.com/shwilliam/shwilliam.com#readme",
+  "homepage": "https://github.com/shwilliam/textarea.link#readme",
   "devDependencies": {
     "@types/mini-css-extract-plugin": "^1.2.2",
     "@types/webpack": "^4.41.26",

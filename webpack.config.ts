@@ -1,7 +1,7 @@
 import * as path from "path"
 import * as webpack from "webpack"
-import * as MiniCssExtract from "mini-css-extract-plugin"
-import * as HtmlWebpackPlugin from "html-webpack-plugin"
+import MiniCssExtract from "mini-css-extract-plugin"
+import HtmlWebpackPlugin from "html-webpack-plugin"
 
 const config: webpack.Configuration = {
   mode: process.env.NODE_ENV === "prod" ? "production" : "development",

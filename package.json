@@ -2,10 +2,10 @@
   "name": "textarea.link",
   "version": "0.1.0",
   "description": "",
-  "main": "dist/index.html",
+  "main": "docs/index.html",
   "scripts": {
     "start": "webpack s",
-    "build": "rm -rf build && webpack"
+    "build": "rm -rf docs && webpack"
   },
   "repository": {
     "type": "git",

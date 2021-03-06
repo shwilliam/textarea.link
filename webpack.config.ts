@@ -7,7 +7,7 @@ const config: webpack.Configuration = {
   mode: process.env.NODE_ENV === "prod" ? "production" : "development",
   entry: path.resolve(__dirname, "src/index.ts"),
   output: {
-    path: path.resolve("dist"),
+    path: path.resolve("docs"),
     filename: "[name].[contenthash].js",
   },
   plugins: [
@@ -34,7 +34,7 @@ const config: webpack.Configuration = {
   },
   devServer: {
     port: 3000,
-    contentBase: path.resolve(__dirname, "dist"),
+    contentBase: path.resolve(__dirname, "docs"),
     compress: true,
   },
 }

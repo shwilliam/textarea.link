@@ -16,14 +16,24 @@ document.addEventListener('DOMContentLoaded', () => {
     qrEl.href = qrURL(location.href)
   }
 
-  textareaEl?.addEventListener('keyup', () => {
+  let prevValue = existingText ?? ''
+  textareaEl?.addEventListener('keydown', (e) => {
     const { value } = textareaEl,
       encodedText = compressToBase64(value),
       newURL = `${location.pathname}?${searchParams}`
 
-    searchParams.set('t', encodedText)
-    history.replaceState({}, '', newURL)
-    if (qrEl) qrEl.href = qrURL(`${location.origin}${newURL}`)
+    if (newURL.length > 2000 && e.key !== 'Backspace') {
+      textareaEl.value = prevValue
+      if (e.key !== 'Enter')
+        alert(
+          'hold up, this text is getting real long; for now, use another text editor'
+        )
+    } else {
+      prevValue = value
+      searchParams.set('t', encodedText)
+      history.replaceState({}, '', newURL)
+      if (qrEl) qrEl.href = qrURL(`${location.origin}${newURL}`)
+    }
   })
 
   copyEl?.addEventListener('click', () => {

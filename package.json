@@ -6,11 +6,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "npm run db:migrate && next start -p $PORT",
     "db:miggen": "knex migrate:make",
     "db:migrate": "knex migrate:latest",
     "db:rollback": "knex migrate:rollback"
   },
+  "cacheDirectories": [
+    ".next/cache"
+  ],
   "dependencies": {
     "@apollo/client": "^3.3.11",
     "apollo-server-micro": "^2.21.0",

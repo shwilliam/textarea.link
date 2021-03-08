@@ -50,3 +50,18 @@
 .lightText {
   color: #666;
 }
+
+.textArea {
+  resize: none;
+  width: 100%;
+  min-height: 200px;
+}
+
+.titleInput {
+  width: 100%;
+  font-size: 2rem;
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: -0.05rem;
+  margin: 1rem 0;
+}

@@ -1,9 +1,9 @@
 import {GetStaticPaths} from 'next'
 import Head from 'next/head'
 import {gql, useQuery} from '@apollo/client'
-import {initApollo} from '../apollo/client'
-import Layout from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
+import {initApollo} from '../../apollo/client'
+import Layout from '../../components/layout'
+import utilStyles from '../../styles/utils.module.css'
 
 const GetPost = gql`
   query post($id: ID) {
@@ -15,16 +15,18 @@ const GetPost = gql`
 `
 
 export default function Post({id}) {
-  const {data, loading, error} = useQuery(GetPost, {variables: {id}})
+  const {data, loading} = useQuery(GetPost, {variables: {id}})
 
-  if (loading || error) return null
+  if (loading) return null
   return (
     <Layout>
       <Head>
-        <title>{data.post.title}</title>
+        <title>{data.post.title || 'untitled'}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{data.post.title}</h1>
+        <h1 className={utilStyles.headingXl}>
+          {data.post.title || 'untitled'}
+        </h1>
         <p>{data.post.body}</p>
       </article>
     </Layout>

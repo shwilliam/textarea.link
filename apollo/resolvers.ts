@@ -1,3 +1,4 @@
+import { AuthenticationError, UserInputError } from 'apollo-server-errors'
 import knex from 'knex'
 import bcrypt from 'bcryptjs'
 
@@ -37,11 +38,10 @@ export const resolvers = {
         .where({ id: args.id })
         .first()
 
-      if (!post) return null
+      if (!post) throw new UserInputError('post does not exist')
 
       const passwordOk = await bcrypt.compare(args.password, post.password)
-
-      if (!passwordOk) return null
+      if (!passwordOk) throw new AuthenticationError('invalid password')
 
       const updatePostRes = await db('posts')
         .where({ id: args.id })

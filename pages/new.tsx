@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import {gql, useMutation} from '@apollo/client'
@@ -15,7 +15,8 @@ const CreatePost = gql`
 `
 
 export default function New() {
-  const [createPost, {data}] = useMutation(CreatePost),
+  const [createPost, {data, error}] = useMutation(CreatePost),
+    [errorMessage, setErrorMessage] = useState<string | null>(),
     [body, setBody] = useState(''),
     handleBodyChange = e => setBody(e.target.value),
     [title, setTitle] = useState('untitled'),
@@ -30,6 +31,11 @@ export default function New() {
       })
     }
 
+  useEffect(() => {
+    if (!error) setErrorMessage(null)
+    else setErrorMessage('error creating post')
+  }, [error])
+
   return (
     <Layout>
       <Head>
@@ -38,8 +44,9 @@ export default function New() {
       {data?.createPost ? (
         <>
           <p>
-            <div>Edit password: {data.createPost.password}</div>
-            <div>(you will need this to update your post)</div>
+            Edit password: {data.createPost.password}
+            <br />
+            (you will need this to update your post)
           </p>
           <Link href={`/${data.createPost.id}`}>view post</Link>
         </>
@@ -58,6 +65,9 @@ export default function New() {
             required
           />
           <button type="submit">create</button>
+          {errorMessage && (
+            <p className={utilStyles.errorText}>{errorMessage}</p>
+          )}
         </form>
       )}
     </Layout>

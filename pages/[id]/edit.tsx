@@ -29,7 +29,8 @@ const EditPost = gql`
 
 export default function Edit({id}) {
   const {data: postData} = useQuery(GetPost, {variables: {id}}),
-    [editPost, {data}] = useMutation(EditPost),
+    [editPost, {data, error}] = useMutation(EditPost),
+    [errorMessage, setErrorMessage] = useState<string | null>(),
     [body, setBody] = useState(postData.post.body ?? ''),
     handleBodyChange = e => setBody(e.target.value),
     [title, setTitle] = useState(postData.post.title ?? 'untitled'),
@@ -46,7 +47,6 @@ export default function Edit({id}) {
           password,
         },
       })
-      // TODO: show incorrect password message
     }
 
   useEffect(() => {
@@ -59,6 +59,13 @@ export default function Edit({id}) {
   useEffect(() => {
     if (data?.editPost) Router.push(`/${data.editPost}`)
   }, [data])
+
+  useEffect(() => {
+    if (!error) setErrorMessage(null)
+    else if (error.message === 'invalid password')
+      setErrorMessage('invalid password')
+    else setErrorMessage('error updating post')
+  }, [error])
 
   return (
     <Layout>
@@ -86,6 +93,9 @@ export default function Edit({id}) {
             required
           />
           <button type="submit">update</button>
+          {errorMessage && (
+            <p className={utilStyles.errorText}>{errorMessage}</p>
+          )}
         </div>
       </form>
     </Layout>

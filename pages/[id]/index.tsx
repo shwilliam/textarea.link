@@ -1,5 +1,6 @@
 import {GetStaticPaths} from 'next'
 import Head from 'next/head'
+import Router from 'next/router'
 import {gql, useQuery} from '@apollo/client'
 import {initApollo} from '../../apollo/client'
 import Layout from '../../components/layout'
@@ -18,6 +19,10 @@ export default function Post({id}) {
   const {data, loading} = useQuery(GetPost, {variables: {id}})
 
   if (loading) return null
+  if (!data?.post) {
+    Router.push('/404')
+    return null
+  }
   return (
     <Layout>
       <Head>
@@ -48,6 +53,8 @@ export async function getStaticProps({params}) {
     variables: {
       id: params.id,
     },
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
   })
 
   return {

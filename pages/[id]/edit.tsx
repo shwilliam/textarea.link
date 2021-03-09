@@ -1,11 +1,10 @@
 import {useEffect, useState} from 'react'
 import {GetStaticPaths} from 'next'
-import Head from 'next/head'
 import Router from 'next/router'
 import {gql, useMutation, useQuery} from '@apollo/client'
+import {initApollo} from '../../apollo/client'
 import Layout from '../../components/layout'
 import utilStyles from '../../styles/utils.module.css'
-import {initApollo} from '../../apollo/client'
 
 const GetPost = gql`
   query post($id: ID) {
@@ -68,10 +67,7 @@ export default function Edit({id}) {
   }, [error])
 
   return (
-    <Layout>
-      <Head>
-        <title>{title ?? 'untitled'}</title>
-      </Head>
+    <Layout title={`${title ?? 'untitled'} (edit)`}>
       <form onSubmit={handleSubmit}>
         <input
           className={utilStyles.titleInput}
@@ -117,6 +113,7 @@ export async function getStaticProps({params}) {
     variables: {
       id: params.id,
     },
+    fetchPolicy: 'network-only',
   })
 
   return {

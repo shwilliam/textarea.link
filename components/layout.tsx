@@ -5,19 +5,27 @@ import utilStyles from '../styles/utils.module.css'
 
 export const siteTitle = 'textarea.link'
 
-export default function Layout({children, home = false}) {
+export default function Layout({
+  children,
+  title = siteTitle,
+  header = null,
+  subHeader = null,
+  noBack = false,
+}) {
   return (
     <div className={styles.container}>
       <Head>
+        <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="description" content="TODO:" />
+        <meta name="description" content="another way to share your content" />
         <meta name="og:title" content={siteTitle} />
       </Head>
-      <header className={styles.header}>
-        {home && <h1 className={utilStyles.heading2Xl}>{siteTitle}</h1>}
+      <header className={header ? undefined : utilStyles.srOnly}>
+        <h2 className={utilStyles.headingS}>{subHeader}</h2>
+        <h1 className={utilStyles.headingL}>{header ?? title}</h1>
       </header>
       <main>{children}</main>
-      {!home && (
+      {!noBack && (
         <div className={styles.back}>
           <Link href="/">
             <a>←</a>

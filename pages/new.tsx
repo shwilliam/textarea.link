@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react'
-import Head from 'next/head'
 import Link from 'next/link'
 import {gql, useMutation} from '@apollo/client'
 import Layout from '../components/layout'
@@ -37,18 +36,26 @@ export default function New() {
   }, [error])
 
   return (
-    <Layout>
-      <Head>
-        <title>new textarea</title>
-      </Head>
+    <Layout title="new textarea">
       {data?.createPost ? (
         <>
+          <p>
+            <Link href={`/${data.createPost.id}`}>
+              <a>textarea.link/{data.createPost.id}</a>
+            </Link>
+          </p>
           <p>
             Edit password: {data.createPost.password}
             <br />
             (you will need this to update your post)
           </p>
-          <Link href={`/${data.createPost.id}`}>view post</Link>
+          <p>
+            Append your link with{' '}
+            <Link href={`/${data.createPost.id}/edit`}>
+              <a>/edit</a>
+            </Link>{' '}
+            to update your post
+          </p>
         </>
       ) : (
         <form onSubmit={handleSubmit}>
@@ -64,7 +71,7 @@ export default function New() {
             onChange={handleBodyChange}
             required
           />
-          <button type="submit">create</button>
+          <button type="submit">save</button>
           {errorMessage && (
             <p className={utilStyles.errorText}>{errorMessage}</p>
           )}

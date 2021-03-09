@@ -1,6 +1,12 @@
-import {parseISO, format} from 'date-fns'
+import {format} from 'date-fns'
 
-export default function Date({dateString}) {
-  const date = parseISO(dateString)
-  return <time dateTime={dateString}>{format(date, 'LLLL d, yyyy')}</time>
+export default function DateComponent({timestamp}) {
+  let date
+  try {
+    date = new Date(Number(timestamp))
+  } catch (e) {
+    return null
+  }
+
+  return <time dateTime={timestamp}>{format(date, 'LLLL d, yyyy')}</time>
 }

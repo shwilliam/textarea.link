@@ -14,17 +14,15 @@ export const resolvers = {
   },
   Mutation: {
     createPost: async (parent, args, ctxt) => {
-      const password = Math.floor(Math.random() * 1e10).toString(16),
-        createPostRes = await db('posts')
-          .returning('id')
-          .insert({
-            title: args.title ?? 'untitled',
-            body: args.body,
-            password: await bcrypt.hash(password, await bcrypt.genSalt()),
-          }),
-        id = createPostRes?.[0]
+      const id = String(Date.now()),
+        password = Math.floor(Math.random() * 1e10).toString(16)
 
-      if (!id) return null
+      await db('posts').insert({
+        id,
+        title: args.title ?? 'untitled',
+        body: args.body,
+        password: await bcrypt.hash(password, await bcrypt.genSalt()),
+      })
 
       return {
         id,

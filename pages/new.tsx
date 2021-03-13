@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react'
 import Link from 'next/link'
 import {gql, useMutation} from '@apollo/client'
 import Layout from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
 
 const CreatePost = gql`
   mutation createPost($title: String, $body: String) {
@@ -60,21 +59,19 @@ export default function New() {
       ) : (
         <form onSubmit={handleSubmit}>
           <input
-            className={utilStyles.titleInput}
             type="text"
+            placeholder="title"
             value={title}
             onChange={handleTitleChange}
           />
           <textarea
-            className={utilStyles.textArea}
+            placeholder="what's on yer mind"
             value={body}
             onChange={handleBodyChange}
             required
           />
           <button type="submit">save</button>
-          {errorMessage && (
-            <p className={utilStyles.errorText}>{errorMessage}</p>
-          )}
+          {errorMessage && <p className="red">{errorMessage}</p>}
         </form>
       )}
     </Layout>

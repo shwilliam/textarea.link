@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from './layout.module.css'
-import utilStyles from '../styles/utils.module.css'
 
 export const siteTitle = 'textarea.link'
 
@@ -20,15 +19,15 @@ export default function Layout({
         <meta name="description" content="another way to share your content" />
         <meta name="og:title" content={siteTitle} />
       </Head>
-      <header className={header ? undefined : utilStyles.srOnly}>
-        <h2 className={utilStyles.headingS}>{subHeader}</h2>
-        <h1 className={utilStyles.headingL}>{header ?? title}</h1>
+      <header className={header ? undefined : 'sr-only'}>
+        <h1 className="no-margin">{header ?? title}</h1>
+        <h2 className="small no-margin">{subHeader}</h2>
       </header>
       <main>{children}</main>
       {!noBack && (
         <div className={styles.back}>
           <Link href="/">
-            <a>←</a>
+            <a>Back</a>
           </Link>
         </div>
       )}

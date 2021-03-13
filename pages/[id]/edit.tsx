@@ -4,7 +4,6 @@ import Router from 'next/router'
 import {gql, useMutation, useQuery} from '@apollo/client'
 import {initApollo} from '../../apollo/client'
 import Layout from '../../components/layout'
-import utilStyles from '../../styles/utils.module.css'
 
 const GetPost = gql`
   query post($id: ID) {
@@ -70,13 +69,13 @@ export default function Edit({id}) {
     <Layout title={`${title ?? 'untitled'} (edit)`}>
       <form onSubmit={handleSubmit}>
         <input
-          className={utilStyles.titleInput}
           type="text"
+          placeholder="title"
           value={title}
           onChange={handleTitleChange}
         />
         <textarea
-          className={utilStyles.textArea}
+          placeholder="what's on yer mind"
           value={body}
           onChange={handleBodyChange}
         />
@@ -89,9 +88,7 @@ export default function Edit({id}) {
             required
           />
           <button type="submit">update</button>
-          {errorMessage && (
-            <p className={utilStyles.errorText}>{errorMessage}</p>
-          )}
+          {errorMessage && <p className="red">{errorMessage}</p>}
         </div>
       </form>
     </Layout>
